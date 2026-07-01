@@ -32,6 +32,7 @@ server:
         backend:
           - path: /sap
             url: http://pbcs4hanade4.phoenixteam.com:8000
+            client: '600'
             destination: DE4
     - name: sap-fe-mockserver
       beforeMiddleware: csp

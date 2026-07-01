@@ -4,133 +4,290 @@
         <edmx:Include Namespace="com.sap.vocabularies.ODM.v1" Alias="SAP__ODM"/>
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
-        <Schema Namespace="ZGW_1012_ODATA4_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-            <EntityType Name="Subscription" sap:semantics="subscriptions" sap:content-version="1">
+        <Schema Namespace="ZGW_20398_SR_ODATA_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="srbasic" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="SId"/>
                 </Key>
-                <Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="32" sap:label="Sub. ID" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
-                <Property Name="user" Type="Edm.String" MaxLength="12" m:FC_TargetPath="SyndicationAuthorName" m:FC_KeepInContent="false" sap:label="User Name" sap:creatable="false" sap:filterable="false"/>
-                <Property Name="updated" Type="Edm.DateTime" Precision="0" m:FC_TargetPath="SyndicationUpdated" m:FC_KeepInContent="false" sap:label="Time Stamp" sap:creatable="false" sap:filterable="false"/>
-                <Property Name="title" Type="Edm.String" MaxLength="255" m:FC_TargetPath="SyndicationTitle" m:FC_KeepInContent="false" sap:label="Title" sap:filterable="false"/>
-                <Property Name="deliveryAddress" Type="Edm.String" sap:label="Delivery Address" sap:filterable="false"/>
-                <Property Name="persistNotifications" Type="Edm.Boolean" sap:label="Persist Notification" sap:filterable="false"/>
-                <Property Name="collection" Type="Edm.String" MaxLength="40" sap:label="Collection" sap:filterable="false"/>
-                <Property Name="filter" Type="Edm.String" sap:label="Filter" sap:filterable="false"/>
-                <Property Name="select" Type="Edm.String" MaxLength="255" sap:label="Select" sap:filterable="false"/>
-                <Property Name="changeType" Type="Edm.String" MaxLength="30" sap:label="Change Type"/>
+                <Property Name="SId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="S_ID"/>
+                <Property Name="SBTitle" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SBDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                <Property Name="SBType" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SBNumber" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SBProposedduedate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                <Property Name="SBFromDepartment" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SBDepartment" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <NavigationProperty Name="ToSrMeet" Relationship="ZGW_20398_SR_ODATA_SRV.srbasicmeet" FromRole="FromRole_srbasicmeet" ToRole="ToRole_srbasicmeet"/>
+                <NavigationProperty Name="ToSrCategory" Relationship="ZGW_20398_SR_ODATA_SRV.srbasiccategory" FromRole="FromRole_srbasiccategory" ToRole="ToRole_srbasiccategory"/>
+                <NavigationProperty Name="ToSrProjectdet" Relationship="ZGW_20398_SR_ODATA_SRV.srbasicprojectdet" FromRole="FromRole_srbasicprojectdet" ToRole="ToRole_srbasicprojectdet"/>
+                <NavigationProperty Name="ToSrFund" Relationship="ZGW_20398_SR_ODATA_SRV.srbasicfund" FromRole="FromRole_srbasicfund" ToRole="ToRole_srbasicfund"/>
+                <NavigationProperty Name="ToSrRegulatory" Relationship="ZGW_20398_SR_ODATA_SRV.srbasicregulatory" FromRole="FromRole_srbasicregulatory" ToRole="ToRole_srbasicregulatory"/>
+                <NavigationProperty Name="ToSrContacts" Relationship="ZGW_20398_SR_ODATA_SRV.srbasiccontacts" FromRole="FromRole_srbasiccontacts" ToRole="ToRole_srbasiccontacts"/>
+                <NavigationProperty Name="ToSrApproval" Relationship="ZGW_20398_SR_ODATA_SRV.srbasicapproval" FromRole="FromRole_srbasicapproval" ToRole="ToRole_srbasicapproval"/>
+                <NavigationProperty Name="ToSrLicense" Relationship="ZGW_20398_SR_ODATA_SRV.srbasiclicense" FromRole="FromRole_srbasiclicense" ToRole="ToRole_srbasiclicense"/>
             </EntityType>
-            <EntityType Name="Notification" sap:semantics="notifications" sap:content-version="1">
+            <EntityType Name="srmeet" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="SMmId"/>
                 </Key>
-                <Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="32" sap:label="Notification ID"/>
-                <Property Name="collection" Type="Edm.String" MaxLength="40" sap:label="Collection"/>
-                <Property Name="title" Type="Edm.String" m:FC_TargetPath="SyndicationTitle" m:FC_KeepInContent="false" sap:label="Notif. Text"/>
-                <Property Name="updated" Type="Edm.DateTime" Precision="0" m:FC_TargetPath="SyndicationUpdated" m:FC_KeepInContent="false" sap:label="Time Stamp"/>
-                <Property Name="changeType" Type="Edm.String" MaxLength="30" sap:label="Change Type"/>
-                <Property Name="entriesOfInterest" Type="Edm.Int32" sap:label="No. of Entries"/>
-                <Property Name="recipient" Type="Edm.String" MaxLength="112" sap:label="Recipient" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SMmId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="MM_ID"/>
+                <Property Name="SId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="S_ID"/>
+                <Property Name="SMandatorymeeting" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SMmWebex" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SMmInperson" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SMmRoomreserved" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SMmRoomlocation" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SMmJobsitewalk" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SMmJwProposeddate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                <Property Name="SMmJwTime" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="Time"/>
+                <Property Name="SMmJwLocation" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SMmProposeddate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                <Property Name="SMmTime" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="Time"/>
+                <Property Name="SMmZone" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SMmPpe" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SMmSpecialinstructions" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
             </EntityType>
-            <EntityType Name="client" sap:content-version="1">
+            <EntityType Name="srcategory" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="ClientId"/>
+                    <PropertyRef Name="SCategoryId"/>
                 </Key>
-                <Property Name="ClientId" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:label="Client ID"/>
-                <Property Name="ClientName" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Client Name"/>
-                <Property Name="ClientOrigin" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Client Country Of Origin"/>
-                <NavigationProperty Name="ToProject" Relationship="ZGW_1012_ODATA4_SRV.clientproject" FromRole="FromRole_clientproject" ToRole="ToRole_clientproject"/>
+                <Property Name="SCategoryId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Category_ID"/>
+                <Property Name="SId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="S_ID"/>
+                <Property Name="SCEngineeringservices" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SCItOt" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SCMaterials" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SCConstruction" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SCProfessional" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SCOther" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SCOtherDescription" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
             </EntityType>
-            <EntityType Name="project" sap:content-version="1">
+            <EntityType Name="srlicense" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="ProjId"/>
+                    <PropertyRef Name="SClId"/>
                 </Key>
-                <Property Name="ProjId" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:label="Project ID"/>
-                <Property Name="ClientId" Type="Edm.Int16" sap:unicode="false" sap:label="Client ID"/>
-                <Property Name="ProjName" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Project Name"/>
-                <Property Name="ProjTimeline" Type="Edm.Int16" sap:unicode="false" sap:label="Project Timeline In Months"/>
-                <NavigationProperty Name="ToEmployee" Relationship="ZGW_1012_ODATA4_SRV.projectemployee" FromRole="FromRole_projectemployee" ToRole="ToRole_projectemployee"/>
+                <Property Name="SClId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="CL_ID"/>
+                <Property Name="SId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="S_ID"/>
+                <Property Name="SClRequired" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SClAGec" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SClBGbc" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SClCSc" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SClC61Lsc" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SClOther" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SClCScNumber" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SClC61LscNumber" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SClOtherDescription" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
             </EntityType>
-            <EntityType Name="employee" sap:content-version="1">
+            <EntityType Name="srprojectdet" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="EmpId"/>
+                    <PropertyRef Name="SPdId"/>
                 </Key>
-                <Property Name="EmpId" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:label="Employee ID"/>
-                <Property Name="ProjId" Type="Edm.Int16" sap:unicode="false" sap:label="Project ID"/>
-                <Property Name="EmpName" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Employee Name"/>
-                <Property Name="EmpRole" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Employee Role"/>
-                <Property Name="EmpDob" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Employee DOB"/>
-                <NavigationProperty Name="ToSalary" Relationship="ZGW_1012_ODATA4_SRV.employeesalary" FromRole="FromRole_employeesalary" ToRole="ToRole_employeesalary"/>
+                <Property Name="SPdId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="PD_ID"/>
+                <Property Name="SId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="S_ID"/>
+                <Property Name="SPdBegindate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                <Property Name="SPdWages" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SPdBidbond" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SPdContractvalue" Type="Edm.Decimal" Precision="15" Scale="2" sap:unicode="false" sap:label="DECIMAL"/>
+                <Property Name="SPdEnddate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
             </EntityType>
-            <EntityType Name="salary" sap:content-version="1">
+            <EntityType Name="srfund" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="SalaryId"/>
-                    <PropertyRef Name="EmpId"/>
+                    <PropertyRef Name="SFsId"/>
                 </Key>
-                <Property Name="SalaryId" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:label="Salary ID"/>
-                <Property Name="EmpId" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:label="Employee ID"/>
-                <Property Name="SalaryCtc" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="Salary CTC" sap:semantics="currency-code"/>
+                <Property Name="SFsId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="FS_ID"/>
+                <Property Name="SId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="S_ID"/>
+                <Property Name="SFsApproved" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SFsNoClarify" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SFsIid" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SFsFederal" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SFsStatecalifornia" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SFsOthersources" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SFsBuyamericaact" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SFsOtherDescription" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Field"/>
             </EntityType>
-            <Association Name="projectemployee" sap:content-version="1">
-                <End Type="ZGW_1012_ODATA4_SRV.project" Multiplicity="1" Role="FromRole_projectemployee"/>
-                <End Type="ZGW_1012_ODATA4_SRV.employee" Multiplicity="*" Role="ToRole_projectemployee"/>
+            <EntityType Name="srregulatory" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SRId"/>
+                </Key>
+                <Property Name="SRId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="R_ID"/>
+                <Property Name="SId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="S_ID"/>
+                <Property Name="SRNerc" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SRExeorder" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SRSenatebill" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Bool"/>
+                <Property Name="SRSpecialreq" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SRNercCertnumber" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SRExeorderNumber" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SRSenatebillNumber" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+            </EntityType>
+            <EntityType Name="srcontacts" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SRcId"/>
+                </Key>
+                <Property Name="SRcId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="RC_ID"/>
+                <Property Name="SId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="S_ID"/>
+                <Property Name="SRcTitle" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SRcFname" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SRcLname" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SRcEmail" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SRcTeleno" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Field"/>
+            </EntityType>
+            <EntityType Name="srapproval" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SAoId"/>
+                </Key>
+                <Property Name="SAoId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="AO_ID"/>
+                <Property Name="SId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="S_ID"/>
+                <Property Name="SAoApprovertitle" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SAoApproverusername" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SAoApprover" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SAoApproverby" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SAoDatereceived" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                <Property Name="SAoDateapproved" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                <Property Name="SAoComments" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Field"/>
+                <Property Name="SAoStatus" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Field"/>
+            </EntityType>
+            <Association Name="srbasiccategory" sap:content-version="1">
+                <End Type="ZGW_20398_SR_ODATA_SRV.srbasic" Multiplicity="1" Role="FromRole_srbasiccategory"/>
+                <End Type="ZGW_20398_SR_ODATA_SRV.srcategory" Multiplicity="1" Role="ToRole_srbasiccategory"/>
                 <ReferentialConstraint>
-                    <Principal Role="FromRole_projectemployee">
-                        <PropertyRef Name="ProjId"/>
+                    <Principal Role="FromRole_srbasiccategory">
+                        <PropertyRef Name="SId"/>
                     </Principal>
-                    <Dependent Role="ToRole_projectemployee">
-                        <PropertyRef Name="ProjId"/>
+                    <Dependent Role="ToRole_srbasiccategory">
+                        <PropertyRef Name="SId"/>
                     </Dependent>
                 </ReferentialConstraint>
             </Association>
-            <Association Name="clientproject" sap:content-version="1">
-                <End Type="ZGW_1012_ODATA4_SRV.client" Multiplicity="1" Role="FromRole_clientproject"/>
-                <End Type="ZGW_1012_ODATA4_SRV.project" Multiplicity="*" Role="ToRole_clientproject"/>
+            <Association Name="srbasicprojectdet" sap:content-version="1">
+                <End Type="ZGW_20398_SR_ODATA_SRV.srbasic" Multiplicity="1" Role="FromRole_srbasicprojectdet"/>
+                <End Type="ZGW_20398_SR_ODATA_SRV.srprojectdet" Multiplicity="1" Role="ToRole_srbasicprojectdet"/>
                 <ReferentialConstraint>
-                    <Principal Role="FromRole_clientproject">
-                        <PropertyRef Name="ClientId"/>
+                    <Principal Role="FromRole_srbasicprojectdet">
+                        <PropertyRef Name="SId"/>
                     </Principal>
-                    <Dependent Role="ToRole_clientproject">
-                        <PropertyRef Name="ClientId"/>
+                    <Dependent Role="ToRole_srbasicprojectdet">
+                        <PropertyRef Name="SId"/>
                     </Dependent>
                 </ReferentialConstraint>
             </Association>
-            <Association Name="employeesalary" sap:content-version="1">
-                <End Type="ZGW_1012_ODATA4_SRV.employee" Multiplicity="1" Role="FromRole_employeesalary"/>
-                <End Type="ZGW_1012_ODATA4_SRV.salary" Multiplicity="1" Role="ToRole_employeesalary"/>
+            <Association Name="srbasicfund" sap:content-version="1">
+                <End Type="ZGW_20398_SR_ODATA_SRV.srbasic" Multiplicity="1" Role="FromRole_srbasicfund"/>
+                <End Type="ZGW_20398_SR_ODATA_SRV.srfund" Multiplicity="1" Role="ToRole_srbasicfund"/>
                 <ReferentialConstraint>
-                    <Principal Role="FromRole_employeesalary">
-                        <PropertyRef Name="EmpId"/>
+                    <Principal Role="FromRole_srbasicfund">
+                        <PropertyRef Name="SId"/>
                     </Principal>
-                    <Dependent Role="ToRole_employeesalary">
-                        <PropertyRef Name="EmpId"/>
+                    <Dependent Role="ToRole_srbasicfund">
+                        <PropertyRef Name="SId"/>
                     </Dependent>
                 </ReferentialConstraint>
             </Association>
-            <EntityContainer Name="ZGW_1012_ODATA4_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
-                <EntitySet Name="SubscriptionCollection" EntityType="ZGW_1012_ODATA4_SRV.Subscription" sap:content-version="1"/>
-                <EntitySet Name="NotificationCollection" EntityType="ZGW_1012_ODATA4_SRV.Notification" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
-                <EntitySet Name="clientSet" EntityType="ZGW_1012_ODATA4_SRV.client" sap:searchable="true" sap:requires-filter="true" sap:content-version="1"/>
-                <EntitySet Name="projectSet" EntityType="ZGW_1012_ODATA4_SRV.project" sap:searchable="true" sap:requires-filter="true" sap:content-version="1"/>
-                <EntitySet Name="employeeSet" EntityType="ZGW_1012_ODATA4_SRV.employee" sap:searchable="true" sap:requires-filter="true" sap:content-version="1"/>
-                <EntitySet Name="salarySet" EntityType="ZGW_1012_ODATA4_SRV.salary" sap:searchable="true" sap:requires-filter="true" sap:content-version="1"/>
-                <AssociationSet Name="projectemployeeSet" Association="ZGW_1012_ODATA4_SRV.projectemployee" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="projectSet" Role="FromRole_projectemployee"/>
-                    <End EntitySet="employeeSet" Role="ToRole_projectemployee"/>
+            <Association Name="srbasicregulatory" sap:content-version="1">
+                <End Type="ZGW_20398_SR_ODATA_SRV.srbasic" Multiplicity="1" Role="FromRole_srbasicregulatory"/>
+                <End Type="ZGW_20398_SR_ODATA_SRV.srregulatory" Multiplicity="1" Role="ToRole_srbasicregulatory"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_srbasicregulatory">
+                        <PropertyRef Name="SId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_srbasicregulatory">
+                        <PropertyRef Name="SId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="srbasiccontacts" sap:content-version="1">
+                <End Type="ZGW_20398_SR_ODATA_SRV.srbasic" Multiplicity="1" Role="FromRole_srbasiccontacts"/>
+                <End Type="ZGW_20398_SR_ODATA_SRV.srcontacts" Multiplicity="*" Role="ToRole_srbasiccontacts"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_srbasiccontacts">
+                        <PropertyRef Name="SId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_srbasiccontacts">
+                        <PropertyRef Name="SId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="srbasicapproval" sap:content-version="1">
+                <End Type="ZGW_20398_SR_ODATA_SRV.srbasic" Multiplicity="1" Role="FromRole_srbasicapproval"/>
+                <End Type="ZGW_20398_SR_ODATA_SRV.srapproval" Multiplicity="*" Role="ToRole_srbasicapproval"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_srbasicapproval">
+                        <PropertyRef Name="SId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_srbasicapproval">
+                        <PropertyRef Name="SId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="srbasiclicense" sap:content-version="1">
+                <End Type="ZGW_20398_SR_ODATA_SRV.srbasic" Multiplicity="1" Role="FromRole_srbasiclicense"/>
+                <End Type="ZGW_20398_SR_ODATA_SRV.srlicense" Multiplicity="1" Role="ToRole_srbasiclicense"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_srbasiclicense">
+                        <PropertyRef Name="SId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_srbasiclicense">
+                        <PropertyRef Name="SId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="srbasicmeet" sap:content-version="1">
+                <End Type="ZGW_20398_SR_ODATA_SRV.srbasic" Multiplicity="1" Role="FromRole_srbasicmeet"/>
+                <End Type="ZGW_20398_SR_ODATA_SRV.srmeet" Multiplicity="1" Role="ToRole_srbasicmeet"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_srbasicmeet">
+                        <PropertyRef Name="SId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_srbasicmeet">
+                        <PropertyRef Name="SId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZGW_20398_SR_ODATA_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="srbasicSet" EntityType="ZGW_20398_SR_ODATA_SRV.srbasic" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="srmeetSet" EntityType="ZGW_20398_SR_ODATA_SRV.srmeet" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="srcategorySet" EntityType="ZGW_20398_SR_ODATA_SRV.srcategory" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="srlicenseSet" EntityType="ZGW_20398_SR_ODATA_SRV.srlicense" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="srprojectdetSet" EntityType="ZGW_20398_SR_ODATA_SRV.srprojectdet" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="srfundSet" EntityType="ZGW_20398_SR_ODATA_SRV.srfund" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="srregulatorySet" EntityType="ZGW_20398_SR_ODATA_SRV.srregulatory" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="srcontactsSet" EntityType="ZGW_20398_SR_ODATA_SRV.srcontacts" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="srapprovalSet" EntityType="ZGW_20398_SR_ODATA_SRV.srapproval" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="srbasiccontactsSet" Association="ZGW_20398_SR_ODATA_SRV.srbasiccontacts" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="srbasicSet" Role="FromRole_srbasiccontacts"/>
+                    <End EntitySet="srcontactsSet" Role="ToRole_srbasiccontacts"/>
                 </AssociationSet>
-                <AssociationSet Name="clientprojectSet" Association="ZGW_1012_ODATA4_SRV.clientproject" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="clientSet" Role="FromRole_clientproject"/>
-                    <End EntitySet="projectSet" Role="ToRole_clientproject"/>
+                <AssociationSet Name="srbasicregulatorySet" Association="ZGW_20398_SR_ODATA_SRV.srbasicregulatory" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="srbasicSet" Role="FromRole_srbasicregulatory"/>
+                    <End EntitySet="srregulatorySet" Role="ToRole_srbasicregulatory"/>
                 </AssociationSet>
-                <AssociationSet Name="employeesalarySet" Association="ZGW_1012_ODATA4_SRV.employeesalary" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="employeeSet" Role="FromRole_employeesalary"/>
-                    <End EntitySet="salarySet" Role="ToRole_employeesalary"/>
+                <AssociationSet Name="srbasicmeetSet" Association="ZGW_20398_SR_ODATA_SRV.srbasicmeet" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="srbasicSet" Role="FromRole_srbasicmeet"/>
+                    <End EntitySet="srmeetSet" Role="ToRole_srbasicmeet"/>
+                </AssociationSet>
+                <AssociationSet Name="srbasiclicenseSet" Association="ZGW_20398_SR_ODATA_SRV.srbasiclicense" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="srbasicSet" Role="FromRole_srbasiclicense"/>
+                    <End EntitySet="srlicenseSet" Role="ToRole_srbasiclicense"/>
+                </AssociationSet>
+                <AssociationSet Name="srbasicapprovalSet" Association="ZGW_20398_SR_ODATA_SRV.srbasicapproval" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="srbasicSet" Role="FromRole_srbasicapproval"/>
+                    <End EntitySet="srapprovalSet" Role="ToRole_srbasicapproval"/>
+                </AssociationSet>
+                <AssociationSet Name="srbasicprojectdetSet" Association="ZGW_20398_SR_ODATA_SRV.srbasicprojectdet" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="srbasicSet" Role="FromRole_srbasicprojectdet"/>
+                    <End EntitySet="srprojectdetSet" Role="ToRole_srbasicprojectdet"/>
+                </AssociationSet>
+                <AssociationSet Name="srbasiccategorySet" Association="ZGW_20398_SR_ODATA_SRV.srbasiccategory" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="srbasicSet" Role="FromRole_srbasiccategory"/>
+                    <End EntitySet="srcategorySet" Role="ToRole_srbasiccategory"/>
+                </AssociationSet>
+                <AssociationSet Name="srbasicfundSet" Association="ZGW_20398_SR_ODATA_SRV.srbasicfund" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="srbasicSet" Role="FromRole_srbasicfund"/>
+                    <End EntitySet="srfundSet" Role="ToRole_srbasicfund"/>
                 </AssociationSet>
             </EntityContainer>
             <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
-            <Annotations Target="ZGW_1012_ODATA4_SRV.ZGW_1012_ODATA4_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
-            <atom:link rel="self" href="/sap/opu/odata/sap/ZGW_1012_ODATA4_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
-            <atom:link rel="latest-version" href="/sap/opu/odata/sap/ZGW_1012_ODATA4_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <Annotations Target="ZGW_20398_SR_ODATA_SRV.ZGW_20398_SR_ODATA_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <atom:link rel="self" href="/sap/opu/odata/sap/ZGW_20398_SR_ODATA_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="/sap/opu/odata/sap/ZGW_20398_SR_ODATA_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

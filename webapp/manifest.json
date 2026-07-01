@@ -64,10 +64,13 @@
           "bundleName": "solireq.solicitationreq.i18n.i18n"
         }
       },
-      "": {
+      "srODataModel": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "autoExpandSelect": true
+        },
         "dataSource": "mainService",
-        "preload": true,
-        "settings": {}
+        "preload": true
       }
     },
     "config": {
@@ -110,28 +113,28 @@
             "Targetsolicitationrequest"
           ]
         },
-          {
-            "name": "Routesolicitationrequestdetail",
-            "pattern": "details/{entryName}:?query:",
-            "target": "TargetDetailsolicitationrequest"
-          }
-        ],
-        "targets": {
-          "Targetsolicitationrequest": {
-            "id": "solicitationrequest",
-            "name": "solicitationrequest"
-          },
-          "TargetDetailsolicitationrequest": {
-            "id": "solicitationDetails",
-            "name": "solicitationDetails"
-          }
+        {
+          "name": "Routesolicitationrequestdetail",
+          "pattern": "details/{entryName}:?query:",
+          "target": "TargetDetailsolicitationrequest"
         }
-      },
-      "rootView": {
-        "viewName": "solireq.solicitationreq.view.App",
-        "type": "XML",
-        "id": "App",
-        "async": true
+      ],
+      "targets": {
+        "Targetsolicitationrequest": {
+          "id": "solicitationrequest",
+          "name": "solicitationrequest"
+        },
+        "TargetDetailsolicitationrequest": {
+          "id": "solicitationDetails",
+          "name": "solicitationDetails"
+        }
       }
+    },
+    "rootView": {
+      "viewName": "solireq.solicitationreq.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
     }
   }
+}

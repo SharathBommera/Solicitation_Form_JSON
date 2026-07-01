@@ -16,7 +16,7 @@
                     <Button id="idAddEntryBtn" icon="sap-icon://add" text="Add New Entry" type="Emphasized" press=".onAddNewEntry"/>
                 </Toolbar>
 
-                <Table items="{solireq>/Table}" id="dataTable" itemPress=".onRowPress" width="100%">
+                <Table items="{srODataModel>/srbasicSet}" id="dataTable" itemPress=".onRowPress" width="100%">
                     <columns>
                         <Column id="_IDGenColumn">
                             <Text id="_IDGenText1" text="Solicitation Title"/>
@@ -43,13 +43,13 @@
                     <items>
                         <ColumnListItem id="_IDGenColumnListItem" type="Active">
                             <cells>
-                                <Text id="_IDGenText8" text="{solireq>outTitle}"/>
-                                <DatePicker id="_IDGenText9" value="{path: 'solireq>outDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" displayFormat="MM/dd/yyyy" valueFormat="mm/dd/yyyy" editable="false"/>
-                                <Text id="_IDGenText10" text="{solireq>outType}" />
-                                <Text id="_IDGenText11" text="{solireq>outNumber}" />
-                                <DatePicker id="_IDGenText12" value="{path: 'solireq>outDueDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" displayFormat="MM/dd/yyyy" valueFormat="mm/dd/yyyy" editable="false"/>
-                                <Text id="_IDGenText13" text="{solireq>outFrom}"/>
-                                <Text id="_IDGenText14" text="{solireq>outDepartment}"/>
+                                <Text id="_IDGenText8" text="{srODataModel>SBTitle}"/>
+                                <DatePicker id="_IDGenText9" value="{path: 'srODataModel>SBDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" displayFormat="MM/dd/yyyy" valueFormat="mm/dd/yyyy" editable="false"/>
+                                <Text id="_IDGenText10" text="{srODataModel>SBType}" />
+                                <Text id="_IDGenText11" text="{srODataModel>SBNumber}" />
+                                <DatePicker id="_IDGenText12" value="{path: 'srODataModel>SBProposedduedate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" displayFormat="MM/dd/yyyy" valueFormat="mm/dd/yyyy" editable="false"/>
+                                <Text id="_IDGenText13" text="{srODataModel>SBFromDepartment}"/>
+                                <Text id="_IDGenText14" text="{srODataModel>SBDepartment}"/>
                             </cells>
                         </ColumnListItem>
                     </items>
