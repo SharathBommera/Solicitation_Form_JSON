@@ -1,0 +1,60 @@
+<mvc:View controllerName="solireq.solicitationreq.controller.solicitationrequest"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:t="sap.ui.table"      
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m" height="100%"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants">
+    <f:DynamicPage id="page1">
+        <f:content>
+            <VBox id="_IDGenVBox2" class="sapUiContentPadding">
+                <Toolbar id="_IDGenToolbar">
+                    <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                    <Button id="idAddEntryBtn" icon="sap-icon://add" text="Add New Entry" type="Emphasized" press=".onAddNewEntry"/>
+                </Toolbar>
+
+                <Table items="{solireq>/Table}" id="dataTable" itemPress=".onRowPress" width="100%">
+                    <columns>
+                        <Column id="_IDGenColumn">
+                            <Text id="_IDGenText1" text="Solicitation Title"/>
+                        </Column>
+                        <Column id="_IDGenColumn1">
+                            <Text id="_IDGenText2" text="Date" />
+                        </Column>
+                        <Column id="_IDGenColumn2">
+                            <Text id="_IDGenText3" text="Solicitation Type" />
+                        </Column>
+                        <Column id="_IDGenColumn3">
+                            <Text id="_IDGenText4" text="Solicitation Number" />
+                        </Column>
+                        <Column id="_IDGenColumn4">
+                            <Text id="_IDGenText5" text="Proposed Due Date" />
+                        </Column>
+                        <Column id="_IDGenColumn5">
+                            <Text id="_IDGenText6" text="From" />
+                        </Column>
+                        <Column id="_IDGenColumn6">
+                            <Text id="_IDGenText7" text="Department"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem id="_IDGenColumnListItem" type="Active">
+                            <cells>
+                                <Text id="_IDGenText8" text="{solireq>outTitle}"/>
+                                <DatePicker id="_IDGenText9" value="{path: 'solireq>outDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" displayFormat="MM/dd/yyyy" valueFormat="mm/dd/yyyy" editable="false"/>
+                                <Text id="_IDGenText10" text="{solireq>outType}" />
+                                <Text id="_IDGenText11" text="{solireq>outNumber}" />
+                                <DatePicker id="_IDGenText12" value="{path: 'solireq>outDueDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" displayFormat="MM/dd/yyyy" valueFormat="mm/dd/yyyy" editable="false"/>
+                                <Text id="_IDGenText13" text="{solireq>outFrom}"/>
+                                <Text id="_IDGenText14" text="{solireq>outDepartment}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

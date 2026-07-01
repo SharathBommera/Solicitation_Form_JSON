@@ -1,0 +1,137 @@
+{
+  "_version": "1.73.1",
+  "sap.app": {
+    "id": "solireq.solicitationreq",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.26.0",
+      "toolsId": "9a941477-3b3d-4823-8015-a1223ba0c41f"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZGW_20398_SR_ODATA_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.136.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "solireq.solicitationreq.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "config": {
+      "fullWidth": true,
+      "sample": {
+        "files": [
+          "solicitationrequest.view.xml",
+          "solicitationrequest.controller.js",
+          "solicitationDetails.view.xml",
+          "solicitationDetails.controller.js",
+          "formatter.js",
+          "manifest.json"
+        ]
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "solireq.solicitationreq.view",
+        "async": true,
+        "viewPath": "solireq.solicitationreq.view"
+      },
+      "routes": [
+        {
+          "name": "Routesolicitationrequest",
+          "pattern": "",
+          "target": [
+            "Targetsolicitationrequest"
+          ]
+        },
+          {
+            "name": "Routesolicitationrequestdetail",
+            "pattern": "details/{entryName}:?query:",
+            "target": "TargetDetailsolicitationrequest"
+          }
+        ],
+        "targets": {
+          "Targetsolicitationrequest": {
+            "id": "solicitationrequest",
+            "name": "solicitationrequest"
+          },
+          "TargetDetailsolicitationrequest": {
+            "id": "solicitationDetails",
+            "name": "solicitationDetails"
+          }
+        }
+      },
+      "rootView": {
+        "viewName": "solireq.solicitationreq.view.App",
+        "type": "XML",
+        "id": "App",
+        "async": true
+      }
+    }
+  }

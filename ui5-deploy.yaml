@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: solireq.solicitationreq
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: DE4
+          url: http://pbcs4hanade4.phoenixteam.com:8000
+          client: '600'
+        app:
+          name: ZSR_FORM
+          description: Solicitation Request Form OData
+          package: ZRAP_219
+          transport: DE4K902726
+        exclude:
+          - /test/
+          - /localService/
