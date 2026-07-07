@@ -433,28 +433,48 @@ sap.ui.define([
                     }
                 });
 
-            } else {
+            }
 
+            else {
                 var sCleanId = String(sId).trim();
-                var sPath = "/srbasicSet('" + encodeURIComponent(sCleanId) + "')";
+                var sPath = "/srbasicSet('" + sCleanId + "')";
 
-                oODataModel.update(sPath, oPayload, {
+                var oHeaderPayload = {
+                    SId: sId,
+                    SBTitle: oCurrentRow.outTitle || "",
+                    SBDate: oCurrentRow.outDate || null,
+                    SBTypeId: oCurrentRow.outType || "",
+                    SBNumber: oCurrentRow.outNumber || "",
+                    SBProposedduedate: oCurrentRow.outDueDate || null,
+                    SBFromId: oCurrentRow.outFrom || "",
+                    SBDeptId: oCurrentRow.outDepartment || ""
+                };
+
+                oODataModel.setDeferredGroups(["saveGroup"]);
+
+                oODataModel.update(sPath, oHeaderPayload, { groupId: "saveGroup" });
+                oODataModel.update("/srmeetSet('" + oPayload.ToSrMeet.SMmId + "')", oPayload.ToSrMeet, { groupId: "saveGroup" });
+                oODataModel.update("/srcategorySet('" + oPayload.ToSrCategory.SCategoryId + "')", oPayload.ToSrCategory, { groupId: "saveGroup" });
+                oODataModel.update("/srlicenseSet('" + oPayload.ToSrLicense.SClId + "')", oPayload.ToSrLicense, { groupId: "saveGroup" });
+                oODataModel.update("/srprojectdetSet('" + oPayload.ToSrProjectdet.SPdId + "')", oPayload.ToSrProjectdet, { groupId: "saveGroup" });
+                oODataModel.update("/srfundSet('" + oPayload.ToSrFund.SFsId + "')", oPayload.ToSrFund, { groupId: "saveGroup" });
+                oODataModel.update("/srregulatorySet('" + oPayload.ToSrRegulatory.SRId + "')", oPayload.ToSrRegulatory, { groupId: "saveGroup" });
+
+                oODataModel.submitChanges({
+                    groupId: "saveGroup",
                     success: function () {
                         MessageToast.show("Data updated successfully.");
                         oODataModel.refresh(true);
-
                         oViewModel.setProperty("/originalRow", JSON.parse(JSON.stringify(oCurrentRow)));
                         oViewModel.setProperty("/editMode", false);
                         oViewModel.setProperty("/visibleEdit", true);
                         oViewModel.setProperty("/enableButton1", true);
                         oViewModel.setProperty("/enableButton2", false);
-                        that.getOwnerComponent().getRouter().navTo("Routesolicitationrequest");
                     },
-                    error: function (err) {
+                    error: function () {
                         MessageToast.show("Failed to update entry.");
                     }
                 });
-
             }
         },
 
