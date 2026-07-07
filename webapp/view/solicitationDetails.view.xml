@@ -12,11 +12,11 @@
 			<uxap:headerTitle>
 				<uxap:ObjectPageDynamicHeaderTitle id="_IDGenObjectPageDynamicHeaderTitle1">
 					<uxap:actions>
-						<Button id="_IDGenButton31" text="Edit"   type="Emphasized" icon="sap-icon://edit"   visible="{solireq>/visibleEdit}"  press=".onEdit"/>
-						<Button id="_IDGenButton1"  text="Print"  type="Emphasized" icon="sap-icon://print"  visible="{solireq>/enableButton1}"/>
-						<Button id="_IDGenButton4"  text="Order"  type="Emphasized" icon="sap-icon://save"   visible="{solireq>/enableButton1}"/>
-						<Button id="_IDGenButton2"  text="Save"   type="Emphasized" icon="sap-icon://save"   visible="{solireq>/enableButton2}" press=".onSave"/>
-						<Button id="_IDGenButton5"  text="Cancel" type="Emphasized" icon="sap-icon://cancel" visible="{solireq>/enableButton2}" press=".onCancel"/>
+						<Button id="_IDGenButton31" text="Edit" type="Emphasized" icon="sap-icon://edit" visible="{solireq>/visibleEdit}" press=".onEdit"/>
+						<Button id="_IDGenButton1" text="Print" type="Emphasized" icon="sap-icon://print" visible="{solireq>/enableButton1}"/>
+						<Button id="_IDGenButton4" text="Order" type="Emphasized" icon="sap-icon://save" visible="{solireq>/enableButton1}"/>
+						<Button id="_IDGenButton2" text="Save" type="Emphasized" icon="sap-icon://save" visible="{solireq>/enableButton2}" press=".onSave"/>
+						<Button id="_IDGenButton5" text="Cancel" type="Emphasized" icon="sap-icon://cancel" visible="{solireq>/enableButton2}" press=".onCancel"/>
 					</uxap:actions>
 				</uxap:ObjectPageDynamicHeaderTitle>
 			</uxap:headerTitle>
@@ -27,36 +27,34 @@
 							<uxap:blocks>
 								<VBox id="_IDGenVBox" class="sapUiContentPadding">
 									<form:SimpleForm id="_IDGenSimpleFormUnified" width="100%" layout="ResponsiveGridLayout"
-                                    labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
-                                    emptySpanXL="0" emptySpanL="0" emptySpanM="0"
-                                    columnsXL="2" columnsL="2" columnsM="2"
-                                    editable="{solireq>/editMode}">
+                                        labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                                        emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+                                        columnsXL="2" columnsL="2" columnsM="2"
+                                        editable="{solireq>/editMode}">
 										<form:content>
 											<core:Title id="_IDGenTitle1"/>
 											<Label id="_IDGenLabel11" text="Solicitation Title" required="true"/>
 											<Input id="_IDGenInput5" value="{solireq>/currentRow/outTitle}" maxLength="15" editable="{solireq>/editMode}"/>
 											<Label id="_IDGenLabel811" text="Date" required="true"/>
 											<DatePicker id="_IDGenDatePicker1"
-                                            value="{path: 'solireq>/currentRow/outDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}"
-                                            displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{solireq>/editMode}"/>
+                                                value="{path: 'solireq>/currentRow/outDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}"
+                                                displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{solireq>/editMode}"/>
 											<Label id="_IDGenLabel51" text="Solicitation Type" required="true"/>
-											<Select id="_IDGenSelect" selectedKey="{solireq>/currentRow/outType}" editable="{solireq>/editMode}">
-												<core:Item id="_IDGenItem2" key="1" text="1"/>
-												<core:Item id="_IDGenItem3" key="2" text="2"/>
+											<Select id="_IDGenSelect" selectedKey="{solireq>/currentRow/outType}" editable="{solireq>/editMode}" items="{path: 'srODataModel>/srtypeSet'}">
+												<core:Item id="_IDGenItemType" key="{srODataModel>SBTypeId}" text="{srODataModel>STypeDesc}"/>
 											</Select>
 											<Label id="_IDGenLabel41" text="Solicitation Number" required="true"/>
 											<Input id="_IDGenInput7" value="{solireq>/currentRow/outNumber}" editable="{solireq>/editMode}"/>
 											<Label id="_IDGenLabel8111" text="Proposed Due Date" required="true"/>
 											<DatePicker id="_IDGenDatePicker11"
-                                            value="{path: 'solireq>/currentRow/outDueDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}"
-                                            displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{solireq>/editMode}"/>
+                                                value="{path: 'solireq>/currentRow/outDueDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}"
+                                                displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{solireq>/editMode}"/>
 											<core:Title id="_IDGenTitle2"/>
 											<Label id="_IDGenLabel4111" text="From" required="true"/>
-											<Input id="_IDGenInput711" value="{solireq>/currentRow/outFrom}" showValueHelp="{solireq>/editMode}" valueHelpRequest="" editable="{solireq>/editMode}"/>
+											<Input id="_IDGenInput711" value="{solireq>/currentRow/outFrom}" showValueHelp="{solireq>/editMode}" valueHelpRequest=".handleValueHelp1" editable="{solireq>/editMode}"/>
 											<Label id="_IDGenLabel411" text="Department" required="true"/>
-											<Select id="_IDGenSelectDept" selectedKey="{solireq>/currentRow/outDepartment}" editable="{solireq>/editMode}">
-												<core:Item id="_IDGenItem23" key="DEV" text="Development"/>
-												<core:Item id="_IDGenItem34" key="MKT" text="Marketing"/>
+											<Select id="_IDGenSelectDept" selectedKey="{solireq>/currentRow/outDepartment}" editable="{solireq>/editMode}" items="{path: 'srODataModel>/srdeptSet'}">
+												<core:Item id="_IDGenItemDept" key="{srODataModel>SBDeptId}" text="{srODataModel>SDeptDesc}"/>
 											</Select>
 										</form:content>
 									</form:SimpleForm>
@@ -71,51 +69,47 @@
 							<uxap:blocks>
 								<VBox id="_IDGenVBox1" class="sapUiContentPadding">
 									<form:SimpleForm id="_IDGenSimpleFormUnified1" width="100%" layout="ResponsiveGridLayout"
-                                    labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
-                                    emptySpanXL="0" emptySpanL="0" emptySpanM="0"
-                                    columnsXL="2" columnsL="2" columnsM="2"
-                                    editable="{solireq>/editMode}">
+                                        labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                                        emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+                                        columnsXL="2" columnsL="2" columnsM="2"
+                                        editable="{solireq>/editMode}">
 										<form:content>
 											<core:Title id="_IDGenTitle3"/>
 											<Label id="_IDGenLabel42" text="Mandatory Meeting" required="true"/>
 											<HBox id="_IDGenHBoxMandatoryMeeting" columnGap="4rem">
 												<RadioButtonGroup id="GroupA" columns="2" editable="{solireq>/editMode}" select=".onMandatoryMeetingSelect" selectedIndex="{solireq>/currentRow/outMandatoryMeeting}">
-													<RadioButton id="_IDGenRadioButton"  text="No"/>
+													<RadioButton id="_IDGenRadioButton" text="No"/>
 													<RadioButton id="_IDGenRadioButton1" text="Yes"/>
 												</RadioButtonGroup>
 												<HBox id="_IDGenHBox" columnGap="2rem">
-													<CheckBox id="_IDGenCheckWebex"    text="Webex" selected="{solireq>/currentRow/outWebex}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/manMeet} === true }"/>
+													<CheckBox id="_IDGenCheckWebex" text="Webex" selected="{solireq>/currentRow/outWebex}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/manMeet} === true }"/>
 													<CheckBox id="_IDGenCheckInPerson" text="In-Person" selected="{solireq>/currentRow/outInPerson}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/manMeet} === true }"/>
 												</HBox>
 											</HBox>
 											<Label id="_IDGenLabel421" text="Has Room Been Reserved?" required="true"/>
 											<RadioButtonGroup id="GroupB" columns="2" editable="{solireq>/editMode}" select=".onRoomReservedSelect" selectedIndex="{solireq>/currentRow/outRoomReserved}">
 												<RadioButton id="_IDGenRadioButton123" text="No"/>
-												<RadioButton id="_IDGenRadioButton12"  text="Yes"/>
+												<RadioButton id="_IDGenRadioButton12" text="Yes"/>
 											</RadioButtonGroup>
 											<Label id="_IDGenLabel4211" text="Location"/>
 											<TextArea id="_IDGenTextArea" rows="4" value="{solireq>/currentRow/outLocation1}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/roomRes} === true }"/>
 											<core:Title id="_IDGenTitle4"/>
-											<Label id="_IDGenLabel1"  text="Proposed Date"/>
-											<!-- <Input id="_IDGenInput" value="{solireq>/currentRow/outDate1}" maxLength="15" editable="{solireq>/editMode}"/> -->
-											<DatePicker id="_IDGenDatePicker3" value="{solireq>/currentRow/outDate1}" editable="{solireq>/editMode}"/>
+											<Label id="_IDGenLabel1" text="Proposed Date"/>
+											<DatePicker id="_IDGenDatePicker3" value="{path: 'solireq>/currentRow/outDate1', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{solireq>/editMode}"/>
 											<Label id="_IDGenLabel10" text="Time"/>
-											<!-- <Input id="_IDGenInput1" value="{solireq>/currentRow/outTime1}" maxLength="15" editable="{solireq>/editMode}"/> -->
-											<TimePicker id="_IDGenTimePicker" value="{solireq>/currentRow/outTime1}" editable="{solireq>/editMode}"/>
+											<TimePicker id="_IDGenTimePicker" value="{path: 'solireq>/currentRow/outTime1', type: 'sap.ui.model.odata.type.Time', formatOptions: {pattern: 'HH:mm:ss'}}" editable="{solireq>/editMode}"/>
 											<Label id="_IDGenLabel12" text="Zone"/>
 											<Input id="_IDGenInput2" value="{solireq>/currentRow/outZone}" editable="{solireq>/editMode}"/>
 											<core:Title id="_IDGenTitle5"/>
 											<Label id="_IDGenLabel4213" text="Jobsite Walk" required="true"/>
 											<RadioButtonGroup id="GroupC" columns="2" editable="{solireq>/editMode}" select=".onJobsiteWalkSelect" selectedIndex="{solireq>/currentRow/outJobsiteWalk}">
-												<RadioButton id="_IDGenRadioButton1234"  text="No"/>
+												<RadioButton id="_IDGenRadioButton1234" text="No"/>
 												<RadioButton id="_IDGenRadioButton12345" text="Yes"/>
 											</RadioButtonGroup>
 											<Label id="_IDGenLabel112" text="Proposed Date"/>
-											<!-- <Input id="_IDGenInput56" value="{solireq>/currentRow/outDate2}" maxLength="15" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/jobWalkReq} === true }"/> -->
-											<DatePicker id="_IDGenDatePicker4" value="{solireq>/currentRow/outDate2}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/jobWalkReq} === true }"/>
+											<DatePicker id="_IDGenDatePicker4" value="{path: 'solireq>/currentRow/outDate2', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/jobWalkReq} === true }"/>
 											<Label id="_IDGenLabel1123" text="Time"/>
-											<!-- <Input id="_IDGenInput567" value="{solireq>/currentRow/outTime2}" maxLength="15" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/jobWalkReq} === true }"/> -->
-											<TimePicker id="_IDGenTimePicker1" value="{solireq>/currentRow/outTime2}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/jobWalkReq} === true }"/>
+											<TimePicker id="_IDGenTimePicker1" value="{path: 'solireq>/currentRow/outTime2', type: 'sap.ui.model.odata.type.Time', formatOptions: {pattern: 'HH:mm:ss'}}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/jobWalkReq} === true }"/>
 											<Label id="_IDGenLabel13" text="Location"/>
 											<TextArea id="_IDGenTextArea1" value="{solireq>/currentRow/outLocation2}" rows="4" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/jobWalkReq} === true }"/>
 											<core:Title id="_IDGenTitle6"/>
@@ -172,7 +166,7 @@
 														<RadioButton id="_IDGenRadioButton5" text="Yes"/>
 													</RadioButtonGroup>
 												</HBox>
-												<CheckBox id="_IDGenCheckBox"  text="A - General Engineering Contractor" selected="{solireq>/currentRow/outLicenseA}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/contractorReq} === true }"/>
+												<CheckBox id="_IDGenCheckBox" text="A - General Engineering Contractor" selected="{solireq>/currentRow/outLicenseA}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/contractorReq} === true }"/>
 												<CheckBox id="_IDGenCheckBox7" text="B - General Building Contractor" selected="{solireq>/currentRow/outLicenseB}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/contractorReq} === true }"/>
 												<HBox id="_IDGenHBox2" columnGap="3rem">
 													<CheckBox id="_IDGenCheckBox8" text="C - Speciality Contractor" select=".onSpecialityContractorSelect" selected="{solireq>/currentRow/outLicenseC}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/contractorReq} === true }"/>
@@ -212,17 +206,17 @@
 							<uxap:blocks>
 								<VBox id="_IDGenVBox15" class="sapUiContentPadding">
 									<form:SimpleForm id="_IDGenSimpleForm1" width="100%" layout="ResponsiveGridLayout"
-                                    labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
-                                    emptySpanXL="0" emptySpanL="0" emptySpanM="0"
-                                    columnsXL="2" columnsL="2" columnsM="2"
-                                    editable="{solireq>/editMode}">
+                                        labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                                        emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+                                        columnsXL="2" columnsL="2" columnsM="2"
+                                        editable="{solireq>/editMode}">
 										<form:content>
 											<core:Title id="_IDGenTitle"/>
 											<Text id="_IDGenLabel162" text="What is the expected timeline of the resulting contract?"/>
 											<Label id="_IDGenLabel16" text="Begin" required="true"/>
 											<DatePicker id="_IDGenDatePicker"
-                                            value="{path: 'solireq>/currentRow/outBegin', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}"
-                                            displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{solireq>/editMode}"/>
+                                                value="{path: 'solireq>/currentRow/outBegin', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}"
+                                                displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{solireq>/editMode}"/>
 											<Label id="_IDGenLabel17" text="Will prevailing wages be required?" required="true"/>
 											<RadioButtonGroup id="_IDGenRadioButtonGroup1" columns="2" editable="{solireq>/editMode}" selectedIndex="{solireq>/currentRow/outPrevailingWages}">
 												<RadioButton id="_IDGenRadioButton6" text="No"/>
@@ -239,8 +233,8 @@
 											<Text id="_IDGenText" text="&#xA;"/>
 											<Label id="_IDGenLabel20" text="End" required="true"/>
 											<DatePicker id="_IDGenDatePicker2"
-                                            value="{path: 'solireq>/currentRow/outEnd', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}"
-                                            displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{solireq>/editMode}"/>
+                                                value="{path: 'solireq>/currentRow/outEnd', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}"
+                                                displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" editable="{solireq>/editMode}"/>
 										</form:content>
 									</form:SimpleForm>
 								</VBox>
@@ -268,8 +262,8 @@
 													<Label id="_IDGenLabel22" text='If "No", please clarify'/>
 													<TextArea id="_IDGenTextArea3" value="{solireq>/currentRow/outBudgetApprNo}" rows="2" width="100%" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/budgetApprNo} === true }"/>
 												</HBox>
-												<CheckBox id="_IDGenCheckBox11" text="IID Revenues" selected="{solireq>/currentRow/outFundIID}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/budgetApprNo} === false }"/>
-												<CheckBox id="_IDGenCheckBox12" text="Federal Funding" select=".onFundFedSelect" selected="{solireq>/currentRow/outFundFed}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/budgetApprNo} === false }"/>
+												<CheckBox id="_IDGenCheckBox11" text="IID Revenues" selected="{solireq>/currentRow/outFundIID}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/budgetApprNo} === true }"/>
+												<CheckBox id="_IDGenCheckBox12" text="Federal Funding" select=".onFundFedSelect" selected="{solireq>/currentRow/outFundFed}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/budgetApprNo} === true }"/>
 												<HBox id="_IDGenHBox13">
 													<Label id="_IDGenLabel23" text='If materials are involved, is this purchase subject to the "Buy America Act"?'/>
 													<RadioButtonGroup id="_IDGenRadioButtonGroup4" columns="2" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/buyAmericaAct} === true }" selectedIndex="{solireq>/currentRow/outBuyAmerica}">
@@ -277,8 +271,8 @@
 														<RadioButton id="_IDGenRadioButton14" text="Yes"/>
 													</RadioButtonGroup>
 												</HBox>
-												<CheckBox id="_IDGenCheckBox13" text="State of California Funding" selected="{solireq>/currentRow/outFundState}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/budgetApprNo} === false }"/>
-												<CheckBox id="_IDGenCheckBox14" text="Other Funding Sources" select=".onFundOtherSelect" selected="{solireq>/currentRow/outFundOther}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/budgetApprNo} === false }"/>
+												<CheckBox id="_IDGenCheckBox13" text="State of California Funding" selected="{solireq>/currentRow/outFundState}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/budgetApprNo} === true }"/>
+												<CheckBox id="_IDGenCheckBox14" text="Other Funding Sources" select=".onFundOtherSelect" selected="{solireq>/currentRow/outFundOther}" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/budgetApprNo} === true }"/>
 												<HBox id="_IDGenHBox14">
 													<Label id="_IDGenLabel24" text="Identify the program, contract or other funding source"/>
 													<TextArea id="_IDGenTextArea5" value="{solireq>/currentRow/outFundOtherTxt}" rows="2" width="100%" editable="{= ${solireq>/editMode} === true &amp;&amp; ${solireq>/fundOther} === true }"/>
@@ -360,16 +354,16 @@
 							<uxap:blocks>
 								<VBox id="_IDGenVBox8" class="sapUiContentPadding">
 									<Label id="_IDGenLabel7" text="Please direct all questions and concerns to the following employees:"/>
-									<Table id="contactsTable" width="100%">
+									<Table id="contactsTable" width="100%" items="{solireq>/currentRow/ToSrContacts}">
 										<columns>
 											<Column id="_IDGenColumn8">
-												<Text  id="_IDGenText15" text="Title"/>
+												<Text id="_IDGenText15" text="Title"/>
 											</Column>
 											<Column id="_IDGenColumn9">
-												<Text  id="_IDGenText16" text="Name"/>
+												<Text id="_IDGenText16" text="Name"/>
 											</Column>
 											<Column id="_IDGenColumn10">
-												<Text id="_IDGenText17" text="First Name"/>
+												<Text id="_DGenText17" text="First Name"/>
 											</Column>
 											<Column id="_IDGenColumn11">
 												<Text id="_IDGenText18" text="Last Name"/>
@@ -381,6 +375,18 @@
 												<Text id="_IDGenText20" text="Telephone No"/>
 											</Column>
 										</columns>
+										<items>
+											<ColumnListItem id="_IDGenColumnListItemContacts">
+												<cells>
+													<Text id="_IDGenText29" text="{solireq>SRcTitle}"/>
+													<Input id="_IDGenInput13" value="{solireq>SRcEmpid}" showValueHelp="{solireq>/editMode}" valueHelpRequest=".onContactValueHelp" editable="{solireq>/editMode}"/>
+													<Text id="_IDGenText30" text="{solireq>SRcFname}"/>
+													<Text id="_IDGenText31" text="{solireq>SRcLname}"/>
+													<Text id="_IDGenText32" text="{solireq>SRcEmail}"/>
+													<Input id="_IDGenInput17" value="{solireq>SRcTeleno}" editable="{solireq>/editMode}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
 									</Table>
 								</VBox>
 							</uxap:blocks>
@@ -394,11 +400,11 @@
 								<VBox id="_IDGenVBox9" class="sapUiContentPadding">
 									<Toolbar id="_IDGenToolbar1">
 										<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-										<Button id="_IDGenButton"  icon="sap-icon://add"    text="Add Approver" enabled="{solireq>/editMode}"/>
-										<Button id="_IDGenButton6" icon="sap-icon://remove" text="Remove Approver" enabled="{solireq>/editMode}"/>
-										<Button id="_IDGenButton7" icon="sap-icon://edit"   text="Change Approvers Sequence" enabled="{solireq>/editMode}"/>
+										<Button id="_IDGenButton" icon="sap-icon://add" text="Add Approver" enabled="{solireq>/editMode}" press=".onAddApprover"/>
+										<Button id="_IDGenButton6" icon="sap-icon://delete" text="Remove Approver" enabled="{solireq>/editMode}" press=".onRemoveApprover"/>
+										<Button id="_IDGenButton7" icon="sap-icon://edit" text="Change Approvers Sequence" enabled="{solireq>/editMode}"/>
 									</Toolbar>
-									<Table id="approvalTable" width="100%">
+									<Table id="approvalTable" width="100%" mode="SingleSelect" items="{solireq>/currentRow/ToSrApproval}">
 										<columns>
 											<Column id="_IDGenColumn14">
 												<Text id="_IDGenText21" text="Approver Title"/>
@@ -421,7 +427,24 @@
 											<Column id="_IDGenColumn20">
 												<Text id="_IDGenText28" text="Comments"/>
 											</Column>
+                                            <Column id="_IDGenColumn21">
+												<Text id="_IDGenText291" text="Status"/>
+											</Column>
 										</columns>
+										<items>
+											<ColumnListItem id="_IDGenColumnListItemApproval">
+												<cells>
+													<Input id="_IDGenInput18" value="{solireq>SAoApprovertitle}" editable="{solireq>/editMode}"/>
+													<Input id="_IDGenInput19" value="{solireq>SAoApproverusername}" editable="{solireq>/editMode}"/>
+													<Input id="_IDGenInput20" value="{solireq>SAoApprover}" editable="{solireq>/editMode}"/>
+													<Input id="_IDGenInput21" value="{solireq>SAoApproverby}" editable="{solireq>/editMode}"/>
+													<DatePicker id="_IDGenDatePicker5" value="{path: 'solireq>SAoDatereceived', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" editable="{solireq>/editMode}"/>
+													<DatePicker id="_IDGenDatePicker6" value="{path: 'solireq>SAoDateapproved', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MM/dd/yyyy', UTC: true}}" editable="{solireq>/editMode}"/>
+													<Input id="_IDGenInput22" value="{solireq>SAoComments}" editable="{solireq>/editMode}"/>
+                                                    <Input id="_IDGenInput23" value="{solireq>SAoStatus}" editable="{solireq>/editMode}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
 									</Table>
 								</VBox>
 							</uxap:blocks>
@@ -435,7 +458,7 @@
 								<VBox id="_IDGenVBox23">
 									<HBox id="_IDGenVBox10" justifyContent="End">
 										<Button id="_IDGenButton8" icon="sap-icon://delete" type="Transparent" enabled="{solireq>/editMode}"/>
-										<Button id="_IDGenButton9" icon="sap-icon://add"    type="Transparent" enabled="{solireq>/editMode}"/>
+										<Button id="_IDGenButton9" icon="sap-icon://add" type="Transparent" enabled="{solireq>/editMode}"/>
 									</HBox>
 									<Text id="_IDGenText24" text='This solicitation request includes (if applicable) all files, drawings, charts and supporting documents in the digital format below:&#xA;When submitting your request, one set of all solicitation package files in digital media must accompany your request. The requesting department below will create and provide the following (in suggested formats):&#xA;&#xA;1. "Proposal Information" document in docx format.&#xA;2. A Drawing Index in docx format listing all drawings by title, number, sheets, &amp; revisions.&#xA;3. All Drawings in pdf format, tables, mentioned in your solicitation.&#xA;4. A specification (if applicable) in docs format.&#xA;5. A "Cost Schedule" or "Price Schedule" in docx or xlsv format. (Required for PRFP or IFB).&#xA;6. A proposed Bidder&apos;s List in docx format complete with full contact information and emails.&#xA;7. Include MWA project number and initiation sheet for approval purposes (if applicable).&#xA;&#xA;Contract Administration Unit will provide the following documents/services for your solicitation:&#xA;1. Assistance with solicitation development, based on your scope of work.&#xA;2. Prepare draft Terms and Conditions, applicable to your solicitation.&#xA;3. Will coordinate Mandatory Meeting and Jobsite Walk, and Evaluation, applicable to your solicitation.&#xA;&#xA;Purchasing Unit will provide the following documents/services for your solicitation:&#xA;1. Invitation Letter, detailing sensitive dates and special instructions applicable to your solicitation.&#xA;2. Response Forms, applicable Cost Schedule will be included in this document for a PRFP or IFB.&#xA;3. Online bidding site posting and all related Addenda.'/>
 								</VBox>
@@ -448,11 +471,11 @@
 		<footer>
 			<OverflowToolbar id="_IDGenOverflowToolbar1">
 				<Button id="messagePopoverBtn"
-					icon="{ path: 'messageModel>/', formatter: '.buttonIconFormatter' }"
-					type="{ path: 'messageModel>/', formatter: '.buttonTypeFormatter' }"
-					text= "{path: 'messageModel>/', formatter: '.highestSeverityMessages' }"
-					press=".handleMessagePopoverPress"
-					ariaHasPopup="Dialog"
+                    icon="{ path: 'messageModel>/', formatter: '.buttonIconFormatter' }"
+                    type="{ path: 'messageModel>/', formatter: '.buttonTypeFormatter' }"
+                    text= "{path: 'messageModel>/', formatter: '.highestSeverityMessages' }"
+                    press=".handleMessagePopoverPress"
+                    ariaHasPopup="Dialog"
                     visible="{= ${messageModel>/}.length > 0 }"/>
 			</OverflowToolbar>
 		</footer>

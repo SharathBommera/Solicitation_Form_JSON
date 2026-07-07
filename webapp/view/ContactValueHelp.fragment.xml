@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <SelectDialog
+        id="contactValueHelpDialog"
+        title="Select Contact"
+        noDataText="No Contacts Found"
+        search=".onContactValueHelpSearch"
+        confirm=".onContactValueHelpConfirm"
+        items="{path: 'srODataModel>/srcontactsSet'}">
+
+        <StandardListItem id="_IDGenStandardListItem2"
+            type="Active"
+            title="{parts: [{path: 'srODataModel>SRcFname'}, {path: 'srODataModel>SRcLname'}], formatter: '.formatFullName'}"
+            description="{srODataModel>SRcEmpid}"/>
+    </SelectDialog>
+</core:FragmentDefinition>

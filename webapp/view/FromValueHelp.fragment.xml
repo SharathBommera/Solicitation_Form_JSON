@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <SelectDialog
+        id="fromValueHelpDialog"
+        title="Select Employee"
+        noDataText="No Employees Found"
+        search=".onFromValueHelpSearch"
+        confirm=".onFromValueHelpConfirm"
+        items="{path: 'srODataModel>/srfromSet'}">
+
+        <StandardListItem id="_IDGenStandardListItem1"
+            type="Active"
+            title="{srODataModel>SBFromName}"
+            description="{srODataModel>SBFromId}"/>
+    </SelectDialog>
+</core:FragmentDefinition>
