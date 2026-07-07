@@ -451,7 +451,6 @@ sap.ui.define([
                 };
 
                 oODataModel.setDeferredGroups(["saveGroup"]);
-
                 oODataModel.update(sPath, oHeaderPayload, { groupId: "saveGroup" });
                 oODataModel.update("/srmeetSet('" + oPayload.ToSrMeet.SMmId + "')", oPayload.ToSrMeet, { groupId: "saveGroup" });
                 oODataModel.update("/srcategorySet('" + oPayload.ToSrCategory.SCategoryId + "')", oPayload.ToSrCategory, { groupId: "saveGroup" });
@@ -470,6 +469,7 @@ sap.ui.define([
                         oViewModel.setProperty("/visibleEdit", true);
                         oViewModel.setProperty("/enableButton1", true);
                         oViewModel.setProperty("/enableButton2", false);
+                        that.that.getOwnerComponent().getRouter().navTo("Routesolicitationrequest");
                     },
                     error: function () {
                         MessageToast.show("Failed to update entry.");
