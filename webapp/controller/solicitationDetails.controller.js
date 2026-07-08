@@ -98,7 +98,7 @@ sap.ui.define([
                     outBegin: null, outPrevailingWages: 0, outBidBond: 0, outEstValue: "", outEnd: null,
                     outBudgetAppr: 0, outBudgetApprNo: "", outFundIID: false, outFundFed: false, outBuyAmerica: 0, outFundState: false, outFundOther: false, outFundOtherTxt: "",
                     outRegNERC: 0, outRegNERCTxt: "", outRegExec: 0, outRegExecTxt: "", outRegSenate: 0, outRegSenateTxt: "", outRegOther: "",
-                    ToSrContacts: this._normalizeContacts([]),
+                    ToSrContacts: this._emptyContacts([]),
                     ToSrApproval: []
                 });
                 oViewModel.setProperty("/originalRow", {});
@@ -715,7 +715,7 @@ sap.ui.define([
             oViewModel.setProperty("/currentRow/ToSrApproval", aApprovals);
         },
 
-        _normalizeContacts: function (aContacts) {
+        _emptyContacts: function (aContacts) {
             var aFixedTitles = ["Owner", "Project Manager", "Technical", "Other"];
             aContacts = aContacts || [];
             return aFixedTitles.map(function (sTitle) {

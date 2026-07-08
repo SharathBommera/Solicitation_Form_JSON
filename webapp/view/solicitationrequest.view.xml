@@ -14,12 +14,13 @@
                 <Toolbar id="_IDGenToolbar">
                     <ToolbarSpacer id="_IDGenToolbarSpacer" />
                     <Button id="idAddEntryBtn" icon="sap-icon://add" text="Add New Entry" type="Emphasized" press=".onAddNewEntry"/>
+                    <Button id="idAddEntryBtn1" icon="sap-icon://delete" text="Delete Entry" type="Emphasized" press=".onDeleteEntry" enabled="{oreqData>/deleteEnabled}"/>
                 </Toolbar>
 
                 <Table items="{
                         path: 'srODataModel>/srbasicSet',
                         parameters: { expand: 'ToSrType,ToSrDept,ToSrFrom' }
-                    }" id="dataTable" itemPress=".onRowPress" width="100%">
+                    }" id="dataTable" itemPress=".onRowPress" width="100%" mode="SingleSelectLeft" selectionChange=".onSelectionChange">
                     <columns>
                         <Column id="_IDGenColumn">
                             <Text id="_IDGenText1" text="Solicitation Title"/>
