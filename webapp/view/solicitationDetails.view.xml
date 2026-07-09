@@ -21,7 +21,7 @@
 				</uxap:ObjectPageDynamicHeaderTitle>
 			</uxap:headerTitle>
 			<uxap:sections>
-				<uxap:ObjectPageSection id="_IDGenObjectPageSection1" title="Basic Data">
+				<uxap:ObjectPageSection id="_IDGenObjectPageSection1" title="Basic Data" >
 					<uxap:subSections>
 						<uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection">
 							<uxap:blocks>

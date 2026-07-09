@@ -15,8 +15,12 @@ sap.ui.define([
     var oMessagePopover;
 
     return Controller.extend("solireq.solicitationreq.controller.solicitationDetails", {
+        // Initially loaded function
         onInit() {
+            // oRouter is the reference to the router of the owner component, which is used to navigate between views. 
             var oRouter = this.getOwnerComponent().getRouter();
+            // oRouter holds the target route "Routesolicitationrequestdetail" and attaches the onObjectMatched function to the patternMatched event of that route.
+            // The onObjectMatched function is called whenever the route is matched, and it receives the event object (oEvent) that contains information about the matched route and its parameters.
             oRouter.getRoute("Routesolicitationrequestdetail").attachPatternMatched(this.onObjectMatched, this);
 
             var oLink = new Link({
@@ -48,7 +52,8 @@ sap.ui.define([
             var oMessageModel = new JSONModel([]);
             this.getView().setModel(oMessageModel, "messageModel");
             this.byId("messagePopoverBtn").addDependent(oMessagePopover);
-
+            
+            // JSON model to hold the state of the view, including visibility and enablement of buttons, edit mode, and various flags for form fields along with current and original row data.
             var oViewModel = new JSONModel({
                 visibleEdit: true,
                 enableButton1: false,
@@ -75,20 +80,35 @@ sap.ui.define([
             this.getView().setModel(oViewModel, "solireq");
         },
 
+        // Triggered from OnInit when the route is matched.
+        // OEvent holds the router parameter details.
         onObjectMatched(oEvent) {
+            // Set the selected section of the ObjectPageLayout to the first section when the route is matched.
+            this.byId("_IDGenObjectPageLayout").setSelectedSection(this.byId("_IDGenObjectPageSection1"));
+            // sId holds the "entryName" argument which is from parameters passed from the router navigation.
+            // sId is the trimmed sId from view router navigation or "new".
+            // paramaters...arguments: ?query: undefined, entryName: "1"
             var sId = oEvent.getParameter("arguments").entryName;
+            // oviewModel holds the objects from "solireq" model which is set in the onInit function.
             var oViewModel = this.getView().getModel("solireq");
-
+            // Set the current ID in the view model. currentId = "1" or "new"
             oViewModel.setProperty("/currentId", sId);
+            // Clearing the message model data to ensure not to display any previous messages.
             this.getView().getModel("messageModel").setData([]);
 
+            // If the sId is not "new" then it is a request to fetch the data from the backend for the given SId.
             if (sId !== "new") {
+                // Initially set the button properties.
                 oViewModel.setProperty("/visibleEdit", true);
                 oViewModel.setProperty("/enableButton1", true);
                 oViewModel.setProperty("/enableButton2", false);
                 oViewModel.setProperty("/editMode", false);
+                // Fetch the expanded OData for the given SId and set the currentRow and originalRow in the view model. 
+                // this is the reference to the controller instance.
                 this.fetchExpandedOData(sId);
-            } else {
+            } 
+            // If the sId is "new" then it is a request to create a new entry, then set the form fields to empty(null or "") and set the button properties accordingly.
+            else {
                 oViewModel.setProperty("/currentRow", {
                     outTitle: "", outDate: null, outType: "", outNumber: "", outDueDate: null, outFrom: "", outDepartment: "",
                     outMeetId: "", outCatId: "", outLicId: "", outProjId: "", outFundId: "", outRegId: "",
@@ -98,7 +118,9 @@ sap.ui.define([
                     outBegin: null, outPrevailingWages: 0, outBidBond: 0, outEstValue: "", outEnd: null,
                     outBudgetAppr: 0, outBudgetApprNo: "", outFundIID: false, outFundFed: false, outBuyAmerica: 0, outFundState: false, outFundOther: false, outFundOtherTxt: "",
                     outRegNERC: 0, outRegNERCTxt: "", outRegExec: 0, outRegExecTxt: "", outRegSenate: 0, outRegSenateTxt: "", outRegOther: "",
-                    ToSrContacts: this._emptyContacts([]),
+                    // Since ToSrContacts and ToSrApproval are arrays of objects, we need to initialize them as empty arrays when creating a new entry.
+                    // emptyContacts is a function that returns an array of objects with fixed titles and empty contact details.
+                    ToSrContacts: this.emptyContacts([]),
                     ToSrApproval: []
                 });
                 oViewModel.setProperty("/originalRow", {});
@@ -125,17 +147,28 @@ sap.ui.define([
             }
         },
 
+        // Triggered from onObjectMatched function when the sId is not "new".
+        // sId is passed as parameter.
         fetchExpandedOData(sId) {
+            // oODataModel is the reference to the OData model "srODataModel" which is an owner component model.
             var oODataModel = this.getOwnerComponent().getModel("srODataModel");
+            // sPath holds the path to the OData entity for the given SId. sPath = "/srbasicSet('1')"
             var sPath = `/srbasicSet('${sId}')`;
 
+            // oViewModel is the reference to the JSON model "solireq" which is set in the onInit function.
             var oViewModel = this.getView().getModel("solireq");
 
+            // GET Method Implementation.
+            // From oODataModel(main OData model service), read the data from the given sPath and expand the related entities.
             oODataModel.read(sPath, {
                 urlParameters: {
                     "$expand": "ToSrMeet,ToSrType,ToSrDept,ToSrCategory,ToSrLicense,ToSrProjectdet,ToSrFund,ToSrRegulatory,ToSrContacts,ToSrApproval"
                 },
+                // success:
+                // ** oData holds the expanded OData for the given SId. 
                 success: function (oData) {
+                    // Map the OData to JSON model properties and set the currentRow and originalRow in the view model.
+                    // If there is value then set else null or "", based on the form field type and corresponding database design.
                     var oMappedData = {
                         outTitle: oData.SBTitle,
                         outDate: oData.SBDate,
@@ -208,13 +241,16 @@ sap.ui.define([
                         outRegSenateTxt: oData.ToSrRegulatory ? oData.ToSrRegulatory.SRSenatebillNumber : "",
                         outRegOther: oData.ToSrRegulatory ? oData.ToSrRegulatory.SRSpecialreq : "",
 
+                        // If the ToSrContacts and ToSrApproval are not null and have results(array of objects), then set them to the corresponding properties, else set them to empty arrays. 
                         ToSrContacts: (oData.ToSrContacts && oData.ToSrContacts.results) ? oData.ToSrContacts.results : [],
                         ToSrApproval: (oData.ToSrApproval && oData.ToSrApproval.results) ? oData.ToSrApproval.results : []
                     };
 
-                    oViewModel.setProperty("/currentRow", oMappedData);
+                    // Set the currentRow and originalRow in the view model. The originalRow is a deep copy of the currentRow(i.e. oMappedData stringified) before changes are made, to allow for canceling edits and reverting to the original data.
+                    oViewModel.setProperty("/currentRow", oMappedData); 
                     oViewModel.setProperty("/originalRow", JSON.parse(JSON.stringify(oMappedData)));
 
+                    // 
                     oViewModel.setProperty("/manMeet", oMappedData.outMandatoryMeeting === 1);
                     oViewModel.setProperty("/roomRes", oMappedData.outRoomReserved === 1);
                     oViewModel.setProperty("/jobWalkReq", oMappedData.outJobsiteWalk === 1);
@@ -715,14 +751,18 @@ sap.ui.define([
             oViewModel.setProperty("/currentRow/ToSrApproval", aApprovals);
         },
 
-        _emptyContacts: function (aContacts) {
+        // Function to ensure that the contacts list always contains entries for the fixed titles. (data or empty)
+        // aContacts: The array of contact objects to be checked and filled with empty entries for missing titles.
+        emptyContacts: function (aContacts) {
+            // Define the fixed titles that should always be present in the contacts list.
             var aFixedTitles = ["Owner", "Project Manager", "Technical", "Other"];
+            // If aContacts is undefined or null, initialize it as an empty array.
             aContacts = aContacts || [];
+            // Map over the fixed titles and check if each title exists in the aContacts array. If it does, return the existing contact; if not, return a new empty contact object with the title set.
             return aFixedTitles.map(function (sTitle) {
                 var oExisting = aContacts.find(function (c) { return c.SRcTitle === sTitle; });
                 return oExisting || {
-                    SRcTitle: sTitle, SRcEmpid: "", SRcFname: "",
-                    SRcLname: "", SRcEmail: "", SRcTeleno: ""
+                    SRcTitle: sTitle, SRcEmpid: "", SRcFname: "", SRcLname: "", SRcEmail: "", SRcTeleno: ""
                 };
             });
         }
