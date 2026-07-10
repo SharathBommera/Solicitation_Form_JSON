@@ -52,7 +52,7 @@ sap.ui.define([
             var oMessageModel = new JSONModel([]);
             this.getView().setModel(oMessageModel, "messageModel");
             this.byId("messagePopoverBtn").addDependent(oMessagePopover);
-            
+
             // JSON model to hold the state of the view, including visibility and enablement of buttons, edit mode, and various flags for form fields along with current and original row data.
             var oViewModel = new JSONModel({
                 visibleEdit: true,
@@ -88,13 +88,16 @@ sap.ui.define([
             // sId holds the "entryName" argument which is from parameters passed from the router navigation.
             // sId is the trimmed sId from view router navigation or "new".
             // paramaters...arguments: ?query: undefined, entryName: "1"
-            var sId = oEvent.getParameter("arguments").entryName;
+            //c var sId = oEvent.getParameter("arguments").entryName;
+            var sId = oEvent.mParameters.arguments.entryName;
             // oviewModel holds the objects from "solireq" model which is set in the onInit function.
-            var oViewModel = this.getView().getModel("solireq");
+            //c var oViewModel = this.getView().getModel("solireq");
+            var oViewModel = this.oView.oModels.solireq;
             // Set the current ID in the view model. currentId = "1" or "new"
             oViewModel.setProperty("/currentId", sId);
             // Clearing the message model data to ensure not to display any previous messages.
-            this.getView().getModel("messageModel").setData([]);
+            //c this.getView().getModel("messageModel").setData([]);
+            this.oView.oModels.messageModel.setData([]);
 
             // If the sId is not "new" then it is a request to fetch the data from the backend for the given SId.
             if (sId !== "new") {
@@ -106,7 +109,7 @@ sap.ui.define([
                 // Fetch the expanded OData for the given SId and set the currentRow and originalRow in the view model. 
                 // this is the reference to the controller instance.
                 this.fetchExpandedOData(sId);
-            } 
+            }
             // If the sId is "new" then it is a request to create a new entry, then set the form fields to empty(null or "") and set the button properties accordingly.
             else {
                 oViewModel.setProperty("/currentRow", {
@@ -151,12 +154,14 @@ sap.ui.define([
         // sId is passed as parameter.
         fetchExpandedOData(sId) {
             // oODataModel is the reference to the OData model "srODataModel" which is an owner component model.
-            var oODataModel = this.getOwnerComponent().getModel("srODataModel");
+            //c var oODataModel = this.getOwnerComponent().getModel("srODataModel");
+            var oODataModel = this.oView.oPropagatedProperties.oModels.srODataModel;
             // sPath holds the path to the OData entity for the given SId. sPath = "/srbasicSet('1')"
             var sPath = `/srbasicSet('${sId}')`;
 
             // oViewModel is the reference to the JSON model "solireq" which is set in the onInit function.
-            var oViewModel = this.getView().getModel("solireq");
+            //c var oViewModel = this.getView().getModel("solireq");
+            var oViewModel = this.oView.oModels.solireq;
 
             // GET Method Implementation.
             // From oODataModel(main OData model service), read the data from the given sPath and expand the related entities.
@@ -165,7 +170,7 @@ sap.ui.define([
                     "$expand": "ToSrMeet,ToSrType,ToSrDept,ToSrCategory,ToSrLicense,ToSrProjectdet,ToSrFund,ToSrRegulatory,ToSrContacts,ToSrApproval"
                 },
                 // success:
-                // ** oData holds the expanded OData for the given SId. 
+                // ** oData(here as parameter) holds the expanded OData for the given SId. 
                 success: function (oData) {
                     // Map the OData to JSON model properties and set the currentRow and originalRow in the view model.
                     // If there is value then set else null or "", based on the form field type and corresponding database design.
@@ -247,10 +252,9 @@ sap.ui.define([
                     };
 
                     // Set the currentRow and originalRow in the view model. The originalRow is a deep copy of the currentRow(i.e. oMappedData stringified) before changes are made, to allow for canceling edits and reverting to the original data.
-                    oViewModel.setProperty("/currentRow", oMappedData); 
+                    oViewModel.setProperty("/currentRow", oMappedData);
                     oViewModel.setProperty("/originalRow", JSON.parse(JSON.stringify(oMappedData)));
 
-                    // 
                     oViewModel.setProperty("/manMeet", oMappedData.outMandatoryMeeting === 1);
                     oViewModel.setProperty("/roomRes", oMappedData.outRoomReserved === 1);
                     oViewModel.setProperty("/jobWalkReq", oMappedData.outJobsiteWalk === 1);
@@ -495,19 +499,36 @@ sap.ui.define([
                 oODataModel.update("/srfundSet('" + oPayload.ToSrFund.SFsId + "')", oPayload.ToSrFund, { groupId: "saveGroup" });
                 oODataModel.update("/srregulatorySet('" + oPayload.ToSrRegulatory.SRId + "')", oPayload.ToSrRegulatory, { groupId: "saveGroup" });
 
+                (this._aDeletedApprovers || []).forEach(function (sAoId) {
+                    oODataModel.remove("/srapprovalSet('" + sAoId + "')", { groupId: "saveGroup" });
+                });
+
+                (oCurrentRow.ToSrApproval || []).forEach(function (oApp) {
+                    if (!oApp.SAoId) {
+                        oODataModel.create(sPath + "/ToSrApproval", oApp, { groupId: "saveGroup" });
+                    } else {
+                        oODataModel.update("/srapprovalSet('" + oApp.SAoId + "')", oApp, { groupId: "saveGroup" });
+                    }
+                });
+
                 oODataModel.submitChanges({
                     groupId: "saveGroup",
                     success: function () {
                         MessageToast.show("Data updated successfully.");
                         oODataModel.refresh(true);
+                        that._aDeletedApprovers = [];
                         oViewModel.setProperty("/originalRow", JSON.parse(JSON.stringify(oCurrentRow)));
                         oViewModel.setProperty("/editMode", false);
                         oViewModel.setProperty("/visibleEdit", true);
                         oViewModel.setProperty("/enableButton1", true);
                         oViewModel.setProperty("/enableButton2", false);
-                        that.that.getOwnerComponent().getRouter().navTo("Routesolicitationrequest");
+                        that.getOwnerComponent().getRouter().navTo("Routesolicitationrequest");
                     },
-                    error: function () {
+                    error: function (oError) {
+                        console.error("Save failed:", oError);
+                        if (oError && oError.responseText) {
+                            console.error("Server response:", oError.responseText);
+                        }
                         MessageToast.show("Failed to update entry.");
                     }
                 });
@@ -527,15 +548,6 @@ sap.ui.define([
                     case "Error":
                         sIcon = "sap-icon://error";
                         break;
-                    case "Warning":
-                        sIcon = sIcon !== "sap-icon://error" ? "sap-icon://alert" : sIcon;
-                        break;
-                    case "Success":
-                        sIcon = sIcon !== "sap-icon://error" && sIcon !== "sap-icon://alert" ? "sap-icon://sys-enter-2" : sIcon;
-                        break;
-                    default:
-                        sIcon = !sIcon ? "sap-icon://information" : sIcon;
-                        break;
                 }
             });
 
@@ -551,15 +563,6 @@ sap.ui.define([
                     case "Error":
                         sHighestSeverityIcon = "Negative";
                         break;
-                    case "Warning":
-                        sHighestSeverityIcon = sHighestSeverityIcon !== "Negative" ? "Critical" : sHighestSeverityIcon;
-                        break;
-                    case "Success":
-                        sHighestSeverityIcon = sHighestSeverityIcon !== "Negative" && sHighestSeverityIcon !== "Critical" ? "Success" : sHighestSeverityIcon;
-                        break;
-                    default:
-                        sHighestSeverityIcon = !sHighestSeverityIcon ? "Neutral" : sHighestSeverityIcon;
-                        break;
                 }
             });
 
@@ -574,15 +577,6 @@ sap.ui.define([
             switch (sHighestSeverityIconType) {
                 case "Negative":
                     sHighestSeverityMessageType = "Error";
-                    break;
-                case "Critical":
-                    sHighestSeverityMessageType = "Warning";
-                    break;
-                case "Success":
-                    sHighestSeverityMessageType = "Success";
-                    break;
-                default:
-                    sHighestSeverityMessageType = !sHighestSeverityMessageType ? "Information" : sHighestSeverityMessageType;
                     break;
             }
 
@@ -701,6 +695,7 @@ sap.ui.define([
             }
         },
 
+        // Search function for the contact value help dialog. It filters the list of contacts based on the search value entered by the user.
         onContactValueHelpSearch: function (oEvent) {
             var sValue = oEvent.getParameter("value");
             var aFilters = sValue ? [
@@ -735,8 +730,7 @@ sap.ui.define([
             var oViewModel = this.getView().getModel("solireq");
             var aApprovals = oViewModel.getProperty("/currentRow/ToSrApproval") || [];
             aApprovals.push({
-                SAoApprovertitle: "", SAoApproverusername: "", SAoApprover: "",
-                SAoApproverby: "", SAoDatereceived: null, SAoDateapproved: null, SAoComments: "", SAoStatus: ""
+                SAoApprovertitle: "", SAoApproverusername: "", SAoApprover: "", SAoApproverby: "", SAoDatereceived: null, SAoDateapproved: null, SAoComments: "", SAoStatus: ""
             });
             oViewModel.setProperty("/currentRow/ToSrApproval", aApprovals);
         },
@@ -744,9 +738,20 @@ sap.ui.define([
         onRemoveApprover() {
             var oTable = this.byId("approvalTable");
             var oContext = oTable.getSelectedItem() && oTable.getSelectedItem().getBindingContext("solireq");
+            if (!oContext) {
+                MessageToast.show("Please select an approver to remove.");
+                return;
+            }
             var oViewModel = this.getView().getModel("solireq");
             var aApprovals = oViewModel.getProperty("/currentRow/ToSrApproval") || [];
             var iIndex = parseInt(oContext.getPath().split("/").pop(), 10);
+            var oRemoved = aApprovals[iIndex];
+
+            if (oRemoved && oRemoved.SAoId) {
+                this._aDeletedApprovers = this._aDeletedApprovers || [];
+                this._aDeletedApprovers.push(oRemoved.SAoId);
+            }
+
             aApprovals.splice(iIndex, 1);
             oViewModel.setProperty("/currentRow/ToSrApproval", aApprovals);
         },

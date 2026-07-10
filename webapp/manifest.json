@@ -81,7 +81,6 @@
           "solicitationrequest.controller.js",
           "solicitationDetails.view.xml",
           "solicitationDetails.controller.js",
-          "formatter.js",
           "manifest.json"
         ]
       }

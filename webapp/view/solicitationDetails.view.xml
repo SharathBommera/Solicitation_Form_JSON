@@ -379,7 +379,7 @@
 											<ColumnListItem id="_IDGenColumnListItemContacts">
 												<cells>
 													<Text id="_IDGenText29" text="{solireq>SRcTitle}"/>
-													<Input id="_IDGenInput13" value="{solireq>SRcEmpid}" showValueHelp="{solireq>/editMode}" valueHelpRequest=".onContactValueHelp" editable="{solireq>/editMode}"/>
+													<Input id="_IDGenInput13" value="{parts: [{path: 'solireq>SRcFname'}, {path: 'solireq>SRcLname'}], formatter: '.formatFullName'}" showValueHelp="{solireq>/editMode}" valueHelpRequest=".onContactValueHelp" editable="{solireq>/editMode}"/>
 													<Text id="_IDGenText30" text="{solireq>SRcFname}"/>
 													<Text id="_IDGenText31" text="{solireq>SRcLname}"/>
 													<Text id="_IDGenText32" text="{solireq>SRcEmail}"/>
@@ -402,7 +402,7 @@
 										<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 										<Button id="_IDGenButton" icon="sap-icon://add" text="Add Approver" enabled="{solireq>/editMode}" press=".onAddApprover"/>
 										<Button id="_IDGenButton6" icon="sap-icon://delete" text="Remove Approver" enabled="{solireq>/editMode}" press=".onRemoveApprover"/>
-										<Button id="_IDGenButton7" icon="sap-icon://edit" text="Change Approvers Sequence" enabled="{solireq>/editMode}"/>
+										<Button id="_IDGenButton7" icon="sap-icon://edit" text="Change Approvers Sequence" enabled="{solireq>/editMode}" press=".onChangeApproverSequence"/>
 									</Toolbar>
 									<Table id="approvalTable" width="100%" mode="SingleSelect" items="{solireq>/currentRow/ToSrApproval}">
 										<columns>

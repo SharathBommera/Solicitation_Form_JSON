@@ -28,10 +28,11 @@ sap.ui.define([
         // oEvent is the event object that contains information about the row that was pressed.
         onRowPress: function (oEvent) {
             // oContext contains the path(sPath:"/Table/0") for the listItem is the row that was pressed, and getBindingContext("srODataModel") gets the binding context of that row in the "srODataModel" model.
-            var oContext = oEvent.getParameter("listItem").getBindingContext("srODataModel");
+            //c var oContext = oEvent.getParameter("listItem").getBindingContext("srODataModel");
             // From the binding context, get the property "SId"(primary key of the Z20398_T_SRBASIC table) and since the type is string trim the trailing and leading spaces and store it in the variable sId.
-            var sId = oContext.getProperty("SId").trim(); //SId = "1"
+            //c var sId = oContext.getProperty("SId").trim(); //SId = "1"
             // From the owner component, get the router and navigate to the "Routesolicitationrequestdetail" route which is the details view of that particular row and pass the SId as a parameter to the route.
+            var sId = oEvent.getParameter("listItem").getBindingContext("srODataModel").sPath.split("('").pop().split("'")[0];
             this.getOwnerComponent().getRouter().navTo("Routesolicitationrequestdetail", {
                 entryName: sId
             });
@@ -53,19 +54,23 @@ sap.ui.define([
         // oEvent is the event object that contains information about the selection change in the table.
         onSelectionChange: function (oEvent) {
             // oTable is the reference to the table that triggered the selection change event.
-            var oTable = oEvent.getSource(); // _aSelectedPaths: ["/srbasicSet('1')"]
+            //c var oTable = oEvent.getSource(); // _aSelectedPaths: ["/srbasicSet('1')"]
             // oSelectedItem is the currently selected item in the table after the selection change event.
-            var oSelectedItem = oTable.getSelectedItem();
+            //c var oSelectedItem = oTable.getSelectedItem();
+            var oSelectedItem = oEvent.oSource._oSelectedItem;
             // If an item is selected, enable the delete button.
             if (oSelectedItem) {
                 this.getView().getModel("oreqData").setProperty("/deleteEnabled", true);
             } else {
                 this.getView().getModel("oreqData").setProperty("/deleteEnabled", false);
             }
+
+            // On reselecting selected radio button, it should get unselected and delete button should get disabled. 
+            // If the selected item is the same as the previously selected item, deselect it and disable the delete button.
         },
 
         // Event handler for the "Delete Entry" button press event.
-        onDeleteEntry: function (oEvent) {
+        onDeleteEntry: function () {
             // oTable is the reference by Id to the data table("dataTable") in the current view.
             var oTable = this.byId("dataTable");
             // oSelectedItem is the currently selected item in the table that is to be deleted.
