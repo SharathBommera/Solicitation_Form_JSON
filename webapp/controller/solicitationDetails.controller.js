@@ -646,7 +646,7 @@ sap.ui.define([
             if (!this._oFromValueHelpDialog) {
                 Fragment.load({
                     id: oView.getId(),
-                    name: "solireq.solicitationreq.view.FromValueHelp",
+                    name: "solireq.solicitationreq.fragment.FromValueHelp",
                     controller: this
                 }).then(function (oDialog) {
                     this._oFromValueHelpDialog = oDialog;
@@ -683,7 +683,7 @@ sap.ui.define([
             if (!this._oContactValueHelpDialog) {
                 Fragment.load({
                     id: oView.getId(),
-                    name: "solireq.solicitationreq.view.ContactValueHelp",
+                    name: "solireq.solicitationreq.fragment.ContactValueHelp",
                     controller: this
                 }).then(function (oDialog) {
                     this._oContactValueHelpDialog = oDialog;

@@ -81,6 +81,8 @@
           "solicitationrequest.controller.js",
           "solicitationDetails.view.xml",
           "solicitationDetails.controller.js",
+          "ContactValueHelp.fragment.xml",
+          "FromValueHelp.fragment.xml",
           "manifest.json"
         ]
       }
