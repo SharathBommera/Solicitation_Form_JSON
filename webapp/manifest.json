@@ -116,7 +116,7 @@
         },
         {
           "name": "Routesolicitationrequestdetail",
-          "pattern": "details/{entryName}:?query:",
+          "pattern": "{entryName}",
           "target": "TargetDetailsolicitationrequest"
         }
       ],

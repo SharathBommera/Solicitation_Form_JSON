@@ -465,7 +465,6 @@ sap.ui.define([
                 oODataModel.create("/srbasicSet", oPayload, {
                     success: function (oData) {
                         MessageToast.show("Data saved successfully.");
-                        oODataModel.refresh(true);
                         that.getOwnerComponent().getRouter().navTo("Routesolicitationrequest");
                     },
                     error: function (oError) {
@@ -498,11 +497,6 @@ sap.ui.define([
                 oODataModel.update("/srprojectdetSet('" + oPayload.ToSrProjectdet.SPdId + "')", oPayload.ToSrProjectdet, { groupId: "saveGroup" });
                 oODataModel.update("/srfundSet('" + oPayload.ToSrFund.SFsId + "')", oPayload.ToSrFund, { groupId: "saveGroup" });
                 oODataModel.update("/srregulatorySet('" + oPayload.ToSrRegulatory.SRId + "')", oPayload.ToSrRegulatory, { groupId: "saveGroup" });
-
-                (this._aDeletedApprovers || []).forEach(function (sAoId) {
-                    oODataModel.remove("/srapprovalSet('" + sAoId + "')", { groupId: "saveGroup" });
-                });
-
                 (oCurrentRow.ToSrApproval || []).forEach(function (oApp) {
                     if (!oApp.SAoId) {
                         oODataModel.create(sPath + "/ToSrApproval", oApp, { groupId: "saveGroup" });
@@ -516,7 +510,6 @@ sap.ui.define([
                     success: function () {
                         MessageToast.show("Data updated successfully.");
                         oODataModel.refresh(true);
-                        that._aDeletedApprovers = [];
                         oViewModel.setProperty("/originalRow", JSON.parse(JSON.stringify(oCurrentRow)));
                         oViewModel.setProperty("/editMode", false);
                         oViewModel.setProperty("/visibleEdit", true);
@@ -732,27 +725,6 @@ sap.ui.define([
             aApprovals.push({
                 SAoApprovertitle: "", SAoApproverusername: "", SAoApprover: "", SAoApproverby: "", SAoDatereceived: null, SAoDateapproved: null, SAoComments: "", SAoStatus: ""
             });
-            oViewModel.setProperty("/currentRow/ToSrApproval", aApprovals);
-        },
-
-        onRemoveApprover() {
-            var oTable = this.byId("approvalTable");
-            var oContext = oTable.getSelectedItem() && oTable.getSelectedItem().getBindingContext("solireq");
-            if (!oContext) {
-                MessageToast.show("Please select an approver to remove.");
-                return;
-            }
-            var oViewModel = this.getView().getModel("solireq");
-            var aApprovals = oViewModel.getProperty("/currentRow/ToSrApproval") || [];
-            var iIndex = parseInt(oContext.getPath().split("/").pop(), 10);
-            var oRemoved = aApprovals[iIndex];
-
-            if (oRemoved && oRemoved.SAoId) {
-                this._aDeletedApprovers = this._aDeletedApprovers || [];
-                this._aDeletedApprovers.push(oRemoved.SAoId);
-            }
-
-            aApprovals.splice(iIndex, 1);
             oViewModel.setProperty("/currentRow/ToSrApproval", aApprovals);
         },
 

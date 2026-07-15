@@ -21,7 +21,7 @@ builder:
           name: ZSR_FORM
           description: Solicitation Request Form OData
           package: ZRAP_219
-          transport: DE4K902726
+          transport: DE4K902772
         exclude:
           - /test/
           - /localService/
